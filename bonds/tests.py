@@ -40,7 +40,7 @@ class AdvancedTests(APITestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_get_bond_legalName(self):
-        response = self.client.get('/api/bonds/?legal_name=BNP PARIBAS')
+        response = self.client.get('/api/bonds/?legal_name__iexact=BNP PARIBAS')
         convert = json.loads(response.content)
         legal_name = convert[0]['legal_name']
 
@@ -48,7 +48,7 @@ class AdvancedTests(APITestCase):
         self.assertEqual(legal_name, 'BNP PARIBAS')
 
     def test_get_bond_egalName_conditional(self):
-        response = self.client.get('/api/bonds/?legal_name=BNP')
+        response = self.client.get('/api/bonds/?legal_name__iexact=BNP')
         convert = json.loads(response.content)
         legal_name = convert[0]['legal_name']
 
@@ -56,7 +56,7 @@ class AdvancedTests(APITestCase):
         self.assertEqual(legal_name, 'BNP PARIBAS')
 
     def test_get_bond_isin(self):
-        response = self.client.get('/api/bonds/?isin=FR0000131104')
+        response = self.client.get('/api/bonds/?isin__iexact=FR0000131104')
         convert = json.loads(response.content)
         legal_name = convert[0]['legal_name']
 
@@ -64,7 +64,7 @@ class AdvancedTests(APITestCase):
         self.assertEqual(legal_name, 'BNP PARIBAS')
 
     def test_get_bond_currency(self):
-        response = self.client.get('/api/bonds/?currency=EUR')
+        response = self.client.get('/api/bonds/?currency__iexact=EUR')
         convert = json.loads(response.content)
         legal_name = convert[0]['legal_name']
 
@@ -72,7 +72,7 @@ class AdvancedTests(APITestCase):
         self.assertEqual(legal_name, 'BNP PARIBAS')
 
     def test_get_bond_currency_conditional(self):
-        response = self.client.get('/api/bonds/?currency=eu')
+        response = self.client.get('/api/bonds/?currency__icontains=EU')
         convert = json.loads(response.content)
         legal_name = convert[0]['legal_name']
 
